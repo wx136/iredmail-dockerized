@@ -1,0 +1,43 @@
+version: "2.1"
+services:
+  iredmail:
+    image: iredmail/mariadb:nightly
+    container_name: iredmail
+    environment:
+      - HOSTNAME=meet.planavy.com
+      - FIRST_MAIL_DOMAIN=planavy.com
+      - FIRST_MAIL_DOMAIN_ADMIN_PASSWORD=123456
+      - MLMMJADMIN_API_TOKEN=$(openssl rand -base64 32)
+      - ROUNDCUBE_DES_KEY=$(openssl rand -base64 24)
+      - MYSQL_ROOT_PASSWORD=admin@123
+      - VMAIL_DB_PASSWORD=admin@123
+      - VMAIL_DB_ADMIN_PASSWORD=admin@123
+      - AMAVISD_DB_PASSWORD=admin@123
+      - ROUNDCUBE_DB_PASSWORD=admin@123
+      - IREDAPD_DB_PASSWORD=admin@123
+      - IREDADMIN_DB_PASSWORD=admin@123
+      - FAIL2BAN_DB_PASSWORD=admin@123
+      - SA_BAYES_DB_PASSWORD=admin@123
+    volumes:
+      - /iredmail/data/backup-mysql:/var/vmail/backup/mysql
+      - /iredmail/data/mailboxes:/var/vmail/vmail1
+      - /iredmail/data/mlmmj:/var/vmail/mlmmj
+      - /iredmail/data/mlmmj-archive:/var/vmail/mlmmj-archive
+      - /iredmail/data/imapsieve_copy:/var/vmail/imapsieve_copy
+      - /iredmail/data/custom:/opt/iredmail/custom
+      - /iredmail/data/ssl:/opt/iredmail/ssl
+      - /iredmail/data/mysql:/var/lib/mysql
+      - /iredmail/data/clamav:/var/lib/clamav
+      - /iredmail/data/sa_rules:/var/lib/spamassassin
+      - /iredmail/data/postfix_queue:/var/spool/postfix
+    ports:
+      - 80:80
+      - 443:443
+      - 110:110
+      - 995:995
+      - 143:143
+      - 993:993
+      - 25:25
+      - 465:465
+      - 587:587
+    restart: unless-stopped
