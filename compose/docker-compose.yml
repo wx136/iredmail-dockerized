@@ -1,8 +1,8 @@
 version: "2.1"
 services:
   iredmail:
-    image: iredmail/mariadb:nightly
-    container_name: iredmail
+    image: wx136/iredmail:nightly
+    container_name: email
     environment:
       - HOSTNAME=meet.planavy.com
       - FIRST_MAIL_DOMAIN=planavy.com
@@ -18,21 +18,22 @@ services:
       - IREDADMIN_DB_PASSWORD=admin@123
       - FAIL2BAN_DB_PASSWORD=admin@123
       - SA_BAYES_DB_PASSWORD=admin@123
+      - MAIL_THE_TIP_FILE=NO
     volumes:
-      - /iredmail/data/backup-mysql:/var/vmail/backup/mysql
-      - /iredmail/data/mailboxes:/var/vmail/vmail1
-      - /iredmail/data/mlmmj:/var/vmail/mlmmj
-      - /iredmail/data/mlmmj-archive:/var/vmail/mlmmj-archive
-      - /iredmail/data/imapsieve_copy:/var/vmail/imapsieve_copy
-      - /iredmail/data/custom:/opt/iredmail/custom
-      - /iredmail/data/ssl:/opt/iredmail/ssl
-      - /iredmail/data/mysql:/var/lib/mysql
-      - /iredmail/data/clamav:/var/lib/clamav
-      - /iredmail/data/sa_rules:/var/lib/spamassassin
-      - /iredmail/data/postfix_queue:/var/spool/postfix
+      - /data/life/email/backup-mysql:/var/vmail/backup/mysql
+      - /data/life/email/mailboxes:/var/vmail/vmail1
+      - /data/life/email/mlmmj:/var/vmail/mlmmj
+      - /data/life/email/mlmmj-archive:/var/vmail/mlmmj-archive
+      - /data/life/email/imapsieve_copy:/var/vmail/imapsieve_copy
+      - /data/life/email/custom:/opt/iredmail/custom
+      - /data/life/email/ssl:/opt/iredmail/ssl
+      - /data/life/email/mysql:/var/lib/mysql
+      - /data/life/email/clamav:/var/lib/clamav
+      - /data/life/email/sa_rules:/var/lib/spamassassin
+      - /data/life/email/postfix_queue:/var/spool/postfix
     ports:
-      - 80:80
-      - 443:443
+      - 83:80
+      - 4433:443
       - 110:110
       - 995:995
       - 143:143
