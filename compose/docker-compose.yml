@@ -9,15 +9,15 @@ services:
       - FIRST_MAIL_DOMAIN_ADMIN_PASSWORD=123456
       - MLMMJADMIN_API_TOKEN=$(openssl rand -base64 32)
       - ROUNDCUBE_DES_KEY=$(openssl rand -base64 24)
-      - MYSQL_ROOT_PASSWORD=admin@123
-      - VMAIL_DB_PASSWORD=admin@123
-      - VMAIL_DB_ADMIN_PASSWORD=admin@123
-      - AMAVISD_DB_PASSWORD=admin@123
-      - ROUNDCUBE_DB_PASSWORD=admin@123
-      - IREDAPD_DB_PASSWORD=admin@123
-      - IREDADMIN_DB_PASSWORD=admin@123
-      - FAIL2BAN_DB_PASSWORD=admin@123
-      - SA_BAYES_DB_PASSWORD=admin@123
+      - MYSQL_ROOT_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - VMAIL_DB_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - VMAIL_DB_ADMIN_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - AMAVISD_DB_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - ROUNDCUBE_DB_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - IREDAPD_DB_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - IREDADMIN_DB_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - FAIL2BAN_DB_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - SA_BAYES_DB_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
       - MAIL_THE_TIP_FILE=NO
     volumes:
       - /data/life/email/backup-mysql:/var/vmail/backup/mysql
