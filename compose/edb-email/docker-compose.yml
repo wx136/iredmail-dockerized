@@ -1,0 +1,71 @@
+version: "3"
+services:
+  edbman:
+    image: planavy/edbman:1.0.1
+    container_name: edbman
+    restart: unless-stopped
+    ports:
+      - 9003:8080
+    depends_on:
+      - edb
+      
+  edb:
+    image: planavy/edb:1.0.1
+    container_name: edb
+    command: 
+      --lower_case_table_names=1
+      --query_cache_type=1
+      --query_cache_size=600000
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD_HASH: '*504A2B09A7DBA7367B0E415BC4FE646F732E1DFB'
+    ports: 
+      - 3307:3306
+      - 33070:33060
+    volumes:
+      - /data/life/edb:/var/lib/mysql
+
+  iredmail:
+    image: iredmail/mariadb:nightly
+    container_name: email
+    environment:
+      - HOSTNAME=meet.planavy.com
+      - FIRST_MAIL_DOMAIN=planavy.com
+      - FIRST_MAIL_DOMAIN_ADMIN_PASSWORD=p@ssw0rd123456
+      - MLMMJADMIN_API_TOKEN=$(openssl rand -base64 32)
+      - ROUNDCUBE_DES_KEY=$(openssl rand -base64 24)
+      - MYSQL_ROOT_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - VMAIL_DB_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - VMAIL_DB_ADMIN_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - AMAVISD_DB_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - ROUNDCUBE_DB_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - IREDAPD_DB_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - IREDADMIN_DB_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - FAIL2BAN_DB_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - SA_BAYES_DB_PASSWORD=6ejDKAm25YtLl1xitwOfgwaudzaRgj
+      - MAIL_THE_TIP_FILE=NO
+    volumes:
+      - /data/life/email/backup-mysql:/var/vmail/backup/mysql
+      - /data/life/email/mailboxes:/var/vmail/vmail1
+      - /data/life/email/mlmmj:/var/vmail/mlmmj
+      - /data/life/email/mlmmj-archive:/var/vmail/mlmmj-archive
+      - /data/life/email/imapsieve_copy:/var/vmail/imapsieve_copy
+      - /data/life/email/custom:/opt/iredmail/custom
+      - /data/life/email/ssl:/opt/iredmail/ssl
+      - /data/life/email/mysql:/var/lib/mysql
+      - /data/life/email/clamav:/var/lib/clamav
+      - /data/life/email/sa_rules:/var/lib/spamassassin
+      - /data/life/email/postfix_queue:/var/spool/postfix
+    ports:
+      - 83:80
+      - 4433:443
+      - 110:110
+      - 995:995
+      - 143:143
+      - 993:993
+      - 25:25
+      - 465:465
+      - 587:587
+    restart: unless-stopped
+    depends_on:
+      - edb
