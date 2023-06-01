@@ -204,8 +204,8 @@ enable_long_queue_ids = yes
 show_user_unknown_table_name = no
 
 # Reject unlisted sender and recipient
-smtpd_reject_unlisted_recipient = yes
-smtpd_reject_unlisted_sender = yes
+#smtpd_reject_unlisted_recipient = yes
+#smtpd_reject_unlisted_sender = yes
 
 # Header and body checks with PCRE table
 header_checks =
@@ -236,27 +236,27 @@ smtpd_helo_restrictions =
     permit_sasl_authenticated
     check_helo_access pcre:/opt/iredmail/custom/postfix/helo_access.pcre
     check_helo_access pcre:/etc/postfix/helo_access.pcre
-    reject_non_fqdn_helo_hostname
-    reject_unknown_helo_hostname
+    #reject_non_fqdn_helo_hostname
+    #reject_unknown_helo_hostname
 
 # Sender restrictions
 smtpd_sender_restrictions =
-    reject_non_fqdn_sender
-    reject_unlisted_sender
+    #reject_non_fqdn_sender
+    #reject_unlisted_sender
     permit_mynetworks
     permit_sasl_authenticated
     check_sender_access pcre:/opt/iredmail/custom/postfix/sender_access.pcre
-    reject_unknown_sender_domain
+    #reject_unknown_sender_domain
 
 # Recipient restrictions
 smtpd_recipient_restrictions =
-    reject_unknown_recipient_domain
-    reject_non_fqdn_recipient
-    reject_unlisted_recipient
+    #reject_unknown_recipient_domain
+    #reject_non_fqdn_recipient
+    #reject_unlisted_recipient
     check_policy_service inet:127.0.0.1:7777
     permit_mynetworks
     permit_sasl_authenticated
-    reject_unauth_destination
+    #reject_unauth_destination
     check_policy_service inet:127.0.0.1:12340
 
 # END-OF-MESSAGE restrictions
