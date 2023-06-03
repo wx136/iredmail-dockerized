@@ -7,4 +7,4 @@ hosts       = edb
 user        = vmail
 password    = 6ejDKAm25YtLl1xitwOfgwaudzaRgj
 dbname      = tvyun
-query       = SELECT CONCAT('vmail1/planavy.com/', name , '//Maildir/') FROM users WHERE mail='%s' AND status=1
+query       = SELECT CONCAT('/var/vmail/vmail1/planavy.com/',name) FROM users WHERE mail='%s' AND status=1

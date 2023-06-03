@@ -7,4 +7,4 @@ hosts       = edb
 user        = vmail
 password    = 6ejDKAm25YtLl1xitwOfgwaudzaRgj
 dbname      = tvyun
-query       = SELECT mail AS username FROM users WHERE mail='%s' AND status=1
+query       = SELECT mail AS alias FROM users WHERE mail='%s' AND status=1
